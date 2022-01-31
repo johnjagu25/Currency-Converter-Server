@@ -18,7 +18,7 @@ router.post("/signin", (req, res) => {
           if (snapshot.exists()) {
             const key = Object.keys(snapshot.val())[0];
             const dbPwd = snapshot.val()[key].password;
-            bcrypt.compare(password, dbPwd,  function (err, result) {
+            bcrypt.compare(password, dbPwd, function (err, result) {
               if (result) {
                 const token = jwt.sign({ username }, process.env.SECRET_MSG, {
                   expiresIn: "1d",
@@ -73,7 +73,8 @@ router.post("/register", (req, res) => {
             setStatusAndMsg(
               res,
               "username_exist",
-              "This username is already in use.",403
+              "This username is already in use.",
+              403
             );
           } else {
             bcrypt.hash(password, 10, (err, hash) => {
@@ -90,13 +91,23 @@ router.post("/register", (req, res) => {
                       setStatusAndMsg(
                         res,
                         "retry",
-                        "Couldn't create user profile. Please try again after sometime",403
+                        "Couldn't create User profile. Please try again after sometime",
+                        403
                       );
                     } else {
+                      const token = jwt.sign(
+                        { username },
+                        process.env.SECRET_MSG,
+                        {
+                          expiresIn: "1d",
+                        }
+                      );
                       setStatusAndMsg(
                         res,
                         "success",
-                        "your User profile is successfully created"
+                        "Your User profile is successfully created",
+                        200,
+                        token
                       );
                     }
                   }
