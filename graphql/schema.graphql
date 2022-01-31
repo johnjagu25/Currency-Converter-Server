@@ -1,0 +1,17 @@
+type Countries {
+  name: String
+  region: String
+  population: Int
+  currency: [Currency]
+  official : String
+  baseCurrencyValue:Float
+}
+type Currency {
+  code: String
+  name: String
+  symbol: String
+  exchangeRate: Float
+}
+type Query {
+  countryDetails(name: String!): [Countries]
+}
