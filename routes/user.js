@@ -15,7 +15,6 @@ router.post("/signin", (req, res) => {
       .once(
         "value",
         (snapshot) => {
-          res.status(200);
           if (snapshot.exists()) {
             const key = Object.keys(snapshot.val())[0];
             const dbPwd = snapshot.val()[key].password;
@@ -70,7 +69,6 @@ router.post("/register", (req, res) => {
       .once(
         "value",
         (snapshot) => {
-          res.status(200);
           if (snapshot.exists()) {
             setStatusAndMsg(
               res,
